@@ -2,7 +2,9 @@ import SearchBox from "./components/SearchBox/SearchBox.js";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Workspace from "./components/Workspace/Workspace.js";
 import "./App.css";
-import { useState, useEffect, useRef } from "react";
+import { NotesContext } from "./context.js";
+import { useState, useEffect, useRef, createContext } from "react";
+
 function App() {
   const [textareaValue, setTextareaValue] = useState("");
   const [notes, setNotes] = useState([]);
@@ -10,7 +12,6 @@ function App() {
   const [isWorkspaceEdit, setIsWorkspaceEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const textarea = useRef(null);
-
   useEffect(() => {
     const updatedArr = notes.map((note) => {
       if (+note.id === +currNote && note.isEditing)
@@ -69,38 +70,41 @@ function App() {
   }, [currNote]);
 
   return (
-    <div className="App">
-      <div className="modal_container">
-        <div className={showModal ? "modal show_modal" : "modal hide_modal"}>
-          Are you sure?
-          <button onClick={delModal}>Yes, definitely</button>
-          <button className="close_modal" onClick={() => setShowModal(false)}>
-            X
-          </button>
+    <NotesContext.Provider
+      value={{
+        notes,
+        currNote,
+        setCurrNote,
+        setIsWorkspaceEdit,
+        textarea,
+        isWorkspaceEdit,
+        textareaValue,
+        setTextareaValue,
+      }}
+    >
+      <div className="App">
+        <div className="modal_container">
+          <div className={showModal ? "modal show_modal" : "modal hide_modal"}>
+            Are you sure?
+            <button onClick={delModal}>Yes, definitely</button>
+            <button className="close_modal" onClick={() => setShowModal(false)}>
+              X
+            </button>
+          </div>
         </div>
-      </div>
 
-      <nav className="navigation">
-        <div className="buttons">
-          <button onClick={addNote}>+</button>
-          <button onClick={showModalWindow}>del</button>
-          <button onClick={editNote}>edit</button>
-        </div>
-        <SearchBox />
-      </nav>
-      <Sidebar
-        isEdit={setIsWorkspaceEdit}
-        notes={notes}
-        curr={currNote}
-        setCurr={setCurrNote}
-      />
-      <Workspace
-        forwardedRef={textarea}
-        isEditable={isWorkspaceEdit}
-        textareaValue={textareaValue}
-        setTextareaValue={setTextareaValue}
-      />
-    </div>
+        <nav className="navigation">
+          <div className="buttons">
+            <button onClick={addNote}>+</button>
+            <button onClick={showModalWindow}>del</button>
+            <button onClick={editNote}>edit</button>
+          </div>
+          <SearchBox />
+        </nav>
+        <Sidebar />
+        <Workspace />
+      </div>
+    </NotesContext.Provider>
   );
 }
 

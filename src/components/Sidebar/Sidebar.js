@@ -1,11 +1,19 @@
-import React from "react";
+import { React, useContext } from "react";
 import "./sidebar.css";
+import { NotesContext } from "../../context.js";
 import ListItem from "../ListItem/ListItem.js";
-export default function Sidebar({ notes, setCurr, curr, isEdit }) {
+export default function Sidebar() {
+  const { currNote, setCurrNote, notes, setIsWorkspaceEdit } =
+    useContext(NotesContext);
   return (
-    <div onClick={() => isEdit(false)}>
+    <div onClick={() => setIsWorkspaceEdit(false)}>
       {notes.map((note) => (
-        <ListItem key={note.id} note={note} curr={curr} setCurr={setCurr} />
+        <ListItem
+          key={note.id}
+          note={note}
+          curr={currNote}
+          setCurr={setCurrNote}
+        />
       ))}
     </div>
   );
