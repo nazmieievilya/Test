@@ -13,3 +13,7 @@
 .new_note:focus {
   outline: none;
 }
+
+textarea:disabled {
+  background-color: rgb(124, 132, 132);
+}
