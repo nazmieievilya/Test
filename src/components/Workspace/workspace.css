@@ -1,0 +1,15 @@
+.workspace {
+  background-color: blue;
+}
+.new_note {
+  height: 100%;
+  width: 100%;
+}
+.new_note {
+  border: none;
+  padding: 0;
+  outline: none;
+}
+.new_note:focus {
+  outline: none;
+}
