@@ -51,8 +51,6 @@ export async function getStucturedRecords() {
   console.log(structured);
 }
 
-// indexedDB
-
 const dbName = "myDatabase";
 const dbVersion = 1;
 const request = indexedDB.open(dbName, dbVersion);

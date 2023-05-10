@@ -17,11 +17,15 @@
 textarea {
   background-color: #fafaf8;
 }
-
 .timest {
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 2px 4px;
   color: #8a8a8a;
+}
+@media (max-width: 425px) {
+  .workspace {
+    grid-column: span 2;
+  }
 }

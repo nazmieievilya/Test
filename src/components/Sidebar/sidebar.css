@@ -4,3 +4,18 @@
 .sidebar {
   background-color: #ededed;
 }
+@media (max-width: 425px) {
+  .sidebar {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    top: 76px;
+    transition: all 0.3s ease;
+  }
+  .menu_close {
+    transform: translateX(100%);
+  }
+  .menu_open {
+    transform: translateX(0);
+  }
+}

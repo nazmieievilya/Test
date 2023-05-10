@@ -28,9 +28,9 @@ export default function Workspace() {
   const template = date
     ? `${
         months[date.getMonth()]
-      } ${date.getDate()}, ${date.getFullYear()} at ${date.getHours()}:${date.getMinutes()} ${
-        date.getHours() - 12 < 0 ? "AM" : "PM"
-      }`
+      } ${date.getDate()}, ${date.getFullYear()} at ${date.getHours()}:${
+        date.getMinutes() < 9 ? "0" + date.getMinutes() : date.getMinutes()
+      } ${date.getHours() - 12 < 0 ? "AM" : "PM"}`
     : "";
   return (
     <div className="workspace">

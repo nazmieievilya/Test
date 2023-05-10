@@ -1,17 +1,17 @@
 import SearchBox from "./components/SearchBox/SearchBox.js";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Workspace from "./components/Workspace/Workspace.js";
+import plus from "./components/icons/plus.svg";
+import menu from "./components/icons/menu.svg";
+import edit from "./components/icons/edit.svg";
+import trash from "./components/icons/trash.svg";
 import {
-  postRecord,
-  deleteAllRec,
-  getStucturedRecords,
   replaceObjectsInDB,
   getAllDataFromDB,
-  addObjectToDB,
 } from "./components/dbHandler/dbHandler.js";
 import "./App.css";
 import { NotesContext } from "./context.js";
-import { useState, useEffect, useRef, createContext } from "react";
+import { useState, useEffect, useRef } from "react";
 
 function App() {
   const [textareaValue, setTextareaValue] = useState("");
@@ -20,6 +20,7 @@ function App() {
   const [currNote, setCurrNote] = useState("");
   const [isWorkspaceEdit, setIsWorkspaceEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const textarea = useRef(null);
   async function fillnotes() {
     // see "https://i.imgur.com/nIhBVM9.png"
@@ -42,6 +43,7 @@ function App() {
   }, [textareaValue]);
 
   function addNote(e) {
+    openMenu();
     const newNote = {
       id: Math.random(),
       value: "",
@@ -58,6 +60,8 @@ function App() {
     setNotes([...updatedArr, newNote]);
   }
   function editNote() {
+    openMenu();
+    console.log("editing");
     const updatedArr = notes.map((note) => {
       if (+note.id === +currNote) {
         note.isEditing = true;
@@ -66,7 +70,6 @@ function App() {
       note.isEditing = false;
       return note;
     });
-    // replaceObjectsInDB([...updatedArr]);
     setNotes([...updatedArr]);
     setIsWorkspaceEdit(true);
   }
@@ -85,14 +88,17 @@ function App() {
 
   useEffect(() => {
     if (currNote === "") return;
-    setTextareaValue(notes.find((note) => +note.id == +currNote).value);
+    setTextareaValue(notes.find((note) => +note.id === +currNote).value);
 
     textarea.current.focus();
-    if (notes.find((note) => +note.id == +currNote).isEditing) {
+    if (notes.find((note) => +note.id === +currNote).isEditing) {
       return setIsWorkspaceEdit(true);
     }
     setIsWorkspaceEdit(false);
   }, [currNote]);
+  function openMenu() {
+    setShowMenu(!showMenu);
+  }
   return (
     <NotesContext.Provider
       value={{
@@ -106,6 +112,11 @@ function App() {
         setTextareaValue,
         searchValue,
         setSearchValue,
+        showMenu,
+        addNote,
+        showModalWindow,
+        editNote,
+        openMenu,
       }}
     >
       <div className="notes_app">
@@ -124,14 +135,24 @@ function App() {
               </button>
             </div>
           </div>
-
           <nav className="navigation">
-            <div className="buttons">
-              <button onClick={addNote}>+</button>
-              <button onClick={showModalWindow}>del</button>
-              <button onClick={editNote}>edit</button>
+            <div
+              className={showMenu ? "buttons menu_open" : "buttons menu_close"}
+            >
+              <button onClick={addNote}>
+                <img src={plus} alt="+" />
+              </button>
+              <button onClick={showModalWindow}>
+                <img src={trash} alt="del" />
+              </button>
+              <button onClick={editNote}>
+                <img src={edit} alt="edit" />
+              </button>
             </div>
             <SearchBox />
+            <button className="menu" onClick={openMenu}>
+              <img src={menu} alt="menu" />
+            </button>
           </nav>
           <Sidebar />
           <Workspace />

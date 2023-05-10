@@ -3,9 +3,9 @@ import { NotesContext } from "../../context.js";
 import "./searchBox.css";
 
 export default function SearchBox() {
-  const { searchValue, setSearchValue } = useContext(NotesContext);
+  const { searchValue, setSearchValue, showMenu } = useContext(NotesContext);
   return (
-    <div className="searchBox">
+    <div className={showMenu ? "searchBox" : "searchBox hidden"}>
       <input
         value={searchValue}
         onChange={(e) => setSearchValue(e.target.value)}

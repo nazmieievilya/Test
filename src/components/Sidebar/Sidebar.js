@@ -3,10 +3,23 @@ import "./sidebar.css";
 import { NotesContext } from "../../context.js";
 import ListItem from "../ListItem/ListItem.js";
 export default function Sidebar() {
-  const { currNote, setCurrNote, notes, setIsWorkspaceEdit, searchValue } =
-    useContext(NotesContext);
+  const {
+    currNote,
+    setCurrNote,
+    notes,
+    setIsWorkspaceEdit,
+    searchValue,
+    showMenu,
+    addNote,
+    showModalWindow,
+    editNote,
+    openMenu,
+  } = useContext(NotesContext);
   return (
-    <div className="sidebar" onClick={() => setIsWorkspaceEdit(false)}>
+    <div
+      className={showMenu ? "sidebar menu_open" : "sidebar menu_close"}
+      onClick={() => setIsWorkspaceEdit(false)}
+    >
       {notes
         .filter((note) =>
           searchValue.toLowerCase() === ""

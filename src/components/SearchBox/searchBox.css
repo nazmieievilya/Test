@@ -1,5 +1,6 @@
 .searchBox {
   display: flex;
+  justify-content: flex-end;
 }
 .searchBox input {
   border: none;
@@ -7,4 +8,17 @@
   border-radius: 4px;
   background-color: white;
   outline: none;
+}
+
+@media (max-width: 425px) {
+  .searchBox {
+    width: 50%;
+    transition: all 0.3s ease;
+  }
+  .searchBox input {
+    width: 100%;
+  }
+  .hidden {
+    opacity: 0;
+  }
 }

@@ -7,9 +7,9 @@ export default function ListItem({ note, setCurr, curr }) {
       ? `${date.getMonth() + 1}/${date.getDate()}/${String(
           date.getFullYear()
         ).substring(2)}`
-      : `${date.getHours()}:${date.getMinutes()} ${
-          date.getHours() - 12 < 0 ? "AM" : "PM"
-        }`
+      : `${date.getHours()}:${
+          date.getMinutes() < 9 ? "0" + date.getMinutes() : date.getMinutes()
+        } ${date.getHours() - 12 < 0 ? "AM" : "PM"}`
     : "";
   const text = note.value.split(/\r?\n|\r|\n/g);
   return (
