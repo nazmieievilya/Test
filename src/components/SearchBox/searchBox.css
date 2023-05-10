@@ -1,4 +1,10 @@
 .searchBox {
   display: flex;
-  background-color: rgb(133, 88, 176);
+}
+.searchBox input {
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  background-color: white;
+  outline: none;
 }

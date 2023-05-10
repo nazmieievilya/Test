@@ -6,7 +6,7 @@ export default function Sidebar() {
   const { currNote, setCurrNote, notes, setIsWorkspaceEdit, searchValue } =
     useContext(NotesContext);
   return (
-    <div onClick={() => setIsWorkspaceEdit(false)}>
+    <div className="sidebar" onClick={() => setIsWorkspaceEdit(false)}>
       {notes
         .filter((note) =>
           searchValue.toLowerCase() === ""

@@ -1,5 +1,6 @@
 .workspace {
-  background-color: blue;
+  padding: 10px;
+  background-color: #fafaf8;
 }
 .new_note {
   height: 100%;
@@ -13,7 +14,14 @@
 .new_note:focus {
   outline: none;
 }
+textarea {
+  background-color: #fafaf8;
+}
 
-textarea:disabled {
-  background-color: rgb(124, 132, 132);
+.timest {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 4px;
+  color: #8a8a8a;
 }

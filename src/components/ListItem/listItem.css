@@ -1,11 +1,26 @@
 .selected_note {
-  background-color: blueviolet;
+  background-color: #e2e2e0;
 }
 .note_item {
   cursor: pointer;
+  font-size: 10px;
   display: flex;
   flex-direction: column;
+  border-bottom: 1px solid #e2e2e0;
+}
+.note_item:hover {
+  background-color: #d6d6d6;
+  transition: all 0.2s ease;
+}
+.note_item h2 {
+  margin: 0;
+  padding: 4px 7px;
+}
+.note_item h4 {
+  margin: 0;
+  padding: 4px 7px;
 }
 .note_description {
   display: flex;
+  align-items: center;
 }

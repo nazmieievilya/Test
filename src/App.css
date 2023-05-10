@@ -1,7 +1,14 @@
+.notes_app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 .App {
-  background-color: aquamarine;
+  background-color: rgb(162, 162, 162);
   display: grid;
   height: 100vh;
+  width: 700px;
+  color: #393939;
   box-sizing: border-box;
   grid-template-columns: 1fr 2fr;
   grid-template-rows: 40px 1fr;
@@ -11,7 +18,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 20px;
-  background-color: antiquewhite;
+  background-color: #d6d6d6;
   height: 40px;
   grid-column: span 2;
 }
@@ -21,6 +28,16 @@
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
+}
+.buttons button {
+  background-color: #f4f4f4;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  border-radius: 4px;
+}
+.buttons button:hover {
+  opacity: 0.8;
 }
 .modal {
   position: relative;

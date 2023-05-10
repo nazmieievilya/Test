@@ -34,7 +34,7 @@ export default function Workspace() {
     : "";
   return (
     <div className="workspace">
-      <div>{template}</div>
+      <div className="timest">{template}</div>
       <textarea
         ref={textarea}
         disabled={!isWorkspaceEdit}

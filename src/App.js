@@ -108,27 +108,34 @@ function App() {
         setSearchValue,
       }}
     >
-      <div className="App">
-        <div className="modal_container">
-          <div className={showModal ? "modal show_modal" : "modal hide_modal"}>
-            Are you sure?
-            <button onClick={delModal}>Yes, definitely</button>
-            <button className="close_modal" onClick={() => setShowModal(false)}>
-              X
-            </button>
+      <div className="notes_app">
+        <div className="App">
+          <div className="modal_container">
+            <div
+              className={showModal ? "modal show_modal" : "modal hide_modal"}
+            >
+              Are you sure?
+              <button onClick={delModal}>Yes, definitely</button>
+              <button
+                className="close_modal"
+                onClick={() => setShowModal(false)}
+              >
+                X
+              </button>
+            </div>
           </div>
-        </div>
 
-        <nav className="navigation">
-          <div className="buttons">
-            <button onClick={addNote}>+</button>
-            <button onClick={showModalWindow}>del</button>
-            <button onClick={editNote}>edit</button>
-          </div>
-          <SearchBox />
-        </nav>
-        <Sidebar />
-        <Workspace />
+          <nav className="navigation">
+            <div className="buttons">
+              <button onClick={addNote}>+</button>
+              <button onClick={showModalWindow}>del</button>
+              <button onClick={editNote}>edit</button>
+            </div>
+            <SearchBox />
+          </nav>
+          <Sidebar />
+          <Workspace />
+        </div>
       </div>
     </NotesContext.Provider>
   );
