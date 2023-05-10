@@ -1,29 +1,53 @@
 import SearchBox from "./components/SearchBox/SearchBox.js";
 import Sidebar from "./components/Sidebar/Sidebar.js";
 import Workspace from "./components/Workspace/Workspace.js";
+import {
+  postRecord,
+  deleteAllRec,
+  getStucturedRecords,
+  replaceObjectsInDB,
+  getAllDataFromDB,
+  addObjectToDB,
+} from "./components/dbHandler/dbHandler.js";
 import "./App.css";
 import { NotesContext } from "./context.js";
 import { useState, useEffect, useRef, createContext } from "react";
 
 function App() {
   const [textareaValue, setTextareaValue] = useState("");
+  const [searchValue, setSearchValue] = useState("");
   const [notes, setNotes] = useState([]);
   const [currNote, setCurrNote] = useState("");
   const [isWorkspaceEdit, setIsWorkspaceEdit] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const textarea = useRef(null);
+  async function fillnotes() {
+    // see "https://i.imgur.com/nIhBVM9.png"
+    const data = await getAllDataFromDB();
+    if (!data) return;
+    console.log(data);
+    setNotes(data);
+  }
+  useEffect(() => {
+    fillnotes();
+  }, []);
   useEffect(() => {
     const updatedArr = notes.map((note) => {
       if (+note.id === +currNote && note.isEditing)
         return { ...note, value: textareaValue };
       return note;
     });
+    if (notes.length !== 0) replaceObjectsInDB(updatedArr);
     setNotes(updatedArr);
-    console.log(notes);
   }, [textareaValue]);
 
   function addNote(e) {
-    const newNote = { id: Math.random(), value: "", isEditing: true };
+    const newNote = {
+      id: Math.random(),
+      value: "",
+      isEditing: true,
+      date: new Date(),
+    };
     const updatedArr = notes.map((note) => {
       if (+note.id === +currNote) return { ...note, isEditing: false };
       note.isEditing = false;
@@ -32,7 +56,6 @@ function App() {
     textarea.current.focus();
     setCurrNote(newNote.id);
     setNotes([...updatedArr, newNote]);
-    console.log(notes);
   }
   function editNote() {
     const updatedArr = notes.map((note) => {
@@ -43,6 +66,7 @@ function App() {
       note.isEditing = false;
       return note;
     });
+    // replaceObjectsInDB([...updatedArr]);
     setNotes([...updatedArr]);
     setIsWorkspaceEdit(true);
   }
@@ -56,6 +80,7 @@ function App() {
     setShowModal(false);
     const updatedArr = notes.filter((note) => +note.id !== +currNote);
     setNotes(updatedArr);
+    replaceObjectsInDB(updatedArr);
   }
 
   useEffect(() => {
@@ -68,7 +93,6 @@ function App() {
     }
     setIsWorkspaceEdit(false);
   }, [currNote]);
-
   return (
     <NotesContext.Provider
       value={{
@@ -80,6 +104,8 @@ function App() {
         isWorkspaceEdit,
         textareaValue,
         setTextareaValue,
+        searchValue,
+        setSearchValue,
       }}
     >
       <div className="App">
